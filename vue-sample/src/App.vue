@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 
 const menuItems = [
   "白頭翁的特性",
@@ -468,19 +468,16 @@ const toggleHeader = () => {
     }
 
     .img-mask {
-      /* width: auto;
-      height: 634.21px; */
+      width: 375px;
+      height: 311.4px;
     }
 
     .img-mask img {
-      /* position: absolute;
-      width: 2034px;
-      height: 1110.88px;
-      top: -234.06px;
-      right: -312.4px;
-      bottom: -246.61px;
-      left: -626.6px;
-      z-index: -1; */
+      position: absolute;
+      width: 696.58px;
+      height: 545.44px;
+      inset: -114px -106px -119px -214px;
+      object-fit: cover;
     }
   }
 
@@ -488,9 +485,9 @@ const toggleHeader = () => {
     background-color: #dcccbc;
     width: 375px;
     height: auto;
-    display: flex; /* 啟用 Flexbox */
-    flex-direction: column; /* 垂直排列 */
-    align-items: center; /* 選擇是否水平置中 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-top: 50.86px;
 
     .footer-div {
