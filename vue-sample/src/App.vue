@@ -449,27 +449,22 @@ const toggleHeader = () => {
     overflow: hidden;
 
     .main-title {
-      /* font-size: 48px;
+      font-size: 48px;
       font-weight: 700;
-      line-height: 65.38px;
+      line-height: 50px;
+      text-align: right;
       color: white;
       position: absolute;
-      top: 503.36px;
-      right: 44.75px;
-      bottom: 65.85px;
-      left: 506.25px; */
+      inset: 77.98px 26.95px 83.42px 62.77px;
     }
 
     .main-content {
-      /* font-size: 18px;
+      font-size: 18px;
       font-weight: 400;
       line-height: 24.52px;
       color: white;
       position: absolute;
-      top: 572.36px;
-      right: 44.75px;
-      bottom: 36.85px;
-      left: 405.25px; */
+      inset: 237.33px 22.67px 24.07px 22.67px;
     }
 
     .img-mask {
