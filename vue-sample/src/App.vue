@@ -55,10 +55,11 @@ const setActive = (index) => {
           </div>
         </div>
       </el-aside>
-      <el-container class="container-main">
-        <el-header class="header">
-          <div class="header-title">白頭翁 (Chinese bulbul)</div>
-          <div class="header-content">
+      <el-container>
+        <el-header class="header" v-show="false"></el-header>
+        <el-main class="main">
+          <div class="main-title">白頭翁 (Chinese bulbul)</div>
+          <div class="main-content">
             又名白頭鵯。以果實、昆蟲為主食，無法消化小米、穀類。平均壽命約 8~10
             年。
           </div>
@@ -68,16 +69,16 @@ const setActive = (index) => {
               alt=""
             />
           </div>
-        </el-header>
-        <el-main class="main">
-          <div class="main-div" v-for="item in sections">
+        </el-main>
+        <el-footer class="footer">
+          <div class="footer-div" v-for="item in sections">
             <div class="title-icon" />
-            <div class="main-title">{{ item.title }}</div>
-            <div class="main-content">
+            <div class="footer-title">{{ item.title }}</div>
+            <div class="footer-content">
               {{ item.content }}
             </div>
           </div>
-        </el-main>
+        </el-footer>
       </el-container>
     </el-container>
   </div>
@@ -185,18 +186,18 @@ const setActive = (index) => {
   }
 }
 
-.container-main {
+/* .container-main {
   width: 1095px;
   height: 1001.36px;
-}
+} */
 
-.header {
+.main {
   width: 1095px;
   height: 634.21px;
   position: relative;
   overflow: hidden;
 
-  .header-title {
+  .main-title {
     font-size: 48px;
     font-weight: 700;
     line-height: 65.38px;
@@ -208,7 +209,7 @@ const setActive = (index) => {
     left: 506.25px;
   }
 
-  .header-content {
+  .main-content {
     font-size: 18px;
     font-weight: 400;
     line-height: 24.52px;
@@ -237,29 +238,29 @@ const setActive = (index) => {
   }
 }
 
-.main {
+.footer {
   background-color: #dcccbc;
   width: 1095px;
   height: 367.15px;
   display: flex;
   overflow: hidden;
 
-  .main-div {
+  .footer-div {
     width: 278.51px;
     height: 225px;
     margin: 58px 0px 85px 58px;
     position: relative;
   }
 
-  .main-div:nth-child(1) {
+  .footer-div:nth-child(1) {
     margin-left: 50.74px;
   }
 
-  .main-div:last-child {
+  .footer-div:last-child {
     margin-right: 50.74px;
   }
 
-  .main-title {
+  .footer-title {
     width: 36px;
     height: 80px;
     font-size: 36px;
@@ -286,7 +287,7 @@ const setActive = (index) => {
     left: 31.94px;
   }
 
-  .main-content {
+  .footer-content {
     font-size: 16px;
     font-weight: 400;
     line-height: 21.79px;
