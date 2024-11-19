@@ -30,7 +30,11 @@ const activeIndex = ref(null);
 const setActive = (index) => {
   activeIndex.value = index;
 };
-const active = ref(true);
+const isHeaderActive = ref(true);
+const toggleHeader = () => {
+  isHeaderActive.value = !isHeaderActive.value;
+  console.log(isHeaderActive.value);
+};
 </script>
 
 <template>
@@ -57,8 +61,12 @@ const active = ref(true);
         </div>
       </el-aside>
       <el-container>
-        <el-header class="header" v-show="true">
-          <div class="header-menu">X</div>
+        <el-header
+          class="header"
+          :class="{ headerActive: isHeaderActive }"
+          v-show="true"
+        >
+          <div class="header-menu" @click="toggleHeader">X</div>
           <div class="header-title">白頭翁不吃小米</div>
           <div class="header-icon">
             <div class="head"></div>
@@ -66,7 +74,19 @@ const active = ref(true);
             <div class="face"></div>
             <div class="eye"></div>
           </div>
+          <div class="content-block" v-show="isHeaderActive">
+            <div
+              class="head-content"
+              v-for="(item, index) in menuItems"
+              :key="index"
+              :class="{ active: activeIndex === index }"
+              @click="setActive(index)"
+            >
+              {{ item }}
+            </div>
+          </div>
         </el-header>
+
         <el-main class="main">
           <div class="main-title">白頭翁 (Chinese bulbul)</div>
           <div class="main-content">
@@ -80,6 +100,7 @@ const active = ref(true);
             />
           </div>
         </el-main>
+
         <el-footer class="footer">
           <div class="footer-div" v-for="item in sections">
             <div class="title-icon" />
@@ -310,98 +331,125 @@ const active = ref(true);
   .header {
     height: 87.74px;
     width: 100%;
+    min-width: 286.43px;
     position: relative;
+  }
 
-    .headerActive {
-      height: 286.43px;
-      border: 2px solid black;
+  .headerActive {
+    height: 286.43px;
+  }
+
+  .header-menu {
+    height: 18px;
+    width: 24px;
+    text-align: center;
+    border: 2px solid black;
+    position: absolute;
+    inset: 34.87px 324.62px 34.87px 26.38px;
+  }
+
+  .header-title {
+    position: absolute;
+    inset: 30.37px 117.5px;
+    width: 140px;
+    height: 27px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 27.24px;
+  }
+  .header-icon {
+    position: absolute;
+    height: 48.78px;
+    width: 48.52px;
+    inset: 19.61px 18.84px 19.61px 307.38px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+
+    .head,
+    .face,
+    .beak,
+    .eye {
+      position: absolute;
+      background-color: black;
     }
 
-    .header-menu {
-      height: 18px;
-      width: 24px;
-      text-align: center;
-      border: 2px solid black;
-      position: absolute;
-      inset: 34.87px 324.62px 34.87px 26.38px;
+    .head {
+      border-radius: 51% 33% 36% 20% / 49% 32% 45% 0%;
+      width: 60%;
+      height: 50%;
+      z-index: 1;
     }
 
-    .header-title {
-      position: absolute;
-      inset: 30.37px 117.5px;
-      width: 140px;
-      height: 27px;
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 27.24px;
-    }
-    .header-icon {
-      position: absolute;
-      height: 48.78px;
-      width: 48.52px;
-      inset: 19.61px 18.84px 19.61px 307.38px;
+    .face {
+      border-radius: 40% 32% 28% 20% / 65% 42% 34% 0%;
       background-color: white;
+      width: 60%;
+      height: 30%;
+      z-index: 3;
+    }
+
+    .eye {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
+      top: 45%;
+      left: 60%;
+      transform: translateX(-50%);
+      z-index: 4;
+    }
 
-      .head,
-      .face,
-      .beak,
-      .eye {
-        position: absolute;
-        background-color: black;
-      }
-
-      .head {
-        border-radius: 51% 33% 36% 20% / 49% 32% 45% 0%;
-        width: 60%;
-        height: 50%;
-        z-index: 1;
-      }
-
-      .face {
-        border-radius: 40% 32% 28% 20% / 65% 42% 34% 0%;
-        background-color: white;
-        width: 60%;
-        height: 30%;
-        z-index: 3;
-      }
-
-      .eye {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        top: 45%;
-        left: 60%;
-        transform: translateX(-50%);
-        z-index: 4;
-      }
-
-      .beak {
-        width: 15px;
-        height: 5px;
-        border-radius: 40% 60% 28% 20% / 0% 100% 0% 0%;
-        top: 40%;
-        left: 80%;
-        transform: translateX(-50%) rotate(-10deg);
-        z-index: 2;
-      }
+    .beak {
+      width: 15px;
+      height: 5px;
+      border-radius: 40% 60% 28% 20% / 0% 100% 0% 0%;
+      top: 40%;
+      left: 80%;
+      transform: translateX(-50%) rotate(-10deg);
+      z-index: 2;
     }
   }
+
+  .content-block {
+    position: absolute;
+    width: 127px;
+    height: 149.21px;
+    inset: 92px 124px 45.22px 124px;
+  }
+
+  .head-content {
+    width: 127px;
+    height: 25px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.52px;
+    text-align: center;
+    margin-bottom: 21.74px;
+  }
+
+  .head-content:hover,
+  .head-content.active {
+    color: #aa6666;
+    text-decoration-line: underline;
+    text-decoration-color: #aa6666;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4.21px;
+  }
+
   .main {
-    width: 1095px;
-    height: 634.21px;
+    width: 375px;
+    height: 311.4px;
     position: relative;
     overflow: hidden;
 
     .main-title {
-      font-size: 48px;
+      /* font-size: 48px;
       font-weight: 700;
       line-height: 65.38px;
       color: white;
@@ -409,11 +457,11 @@ const active = ref(true);
       top: 503.36px;
       right: 44.75px;
       bottom: 65.85px;
-      left: 506.25px;
+      left: 506.25px; */
     }
 
     .main-content {
-      font-size: 18px;
+      /* font-size: 18px;
       font-weight: 400;
       line-height: 24.52px;
       color: white;
@@ -421,46 +469,45 @@ const active = ref(true);
       top: 572.36px;
       right: 44.75px;
       bottom: 36.85px;
-      left: 405.25px;
+      left: 405.25px; */
     }
 
     .img-mask {
-      width: auto;
-      height: 634.21px;
+      /* width: auto;
+      height: 634.21px; */
     }
 
     .img-mask img {
-      position: absolute;
+      /* position: absolute;
       width: 2034px;
       height: 1110.88px;
       top: -234.06px;
       right: -312.4px;
       bottom: -246.61px;
       left: -626.6px;
-      z-index: -1;
+      z-index: -1; */
     }
   }
 
   .footer {
     background-color: #dcccbc;
-    width: 1095px;
-    height: 367.15px;
-    display: flex;
-    overflow: hidden;
+    width: 375px;
+    height: auto;
+    display: flex; /* 啟用 Flexbox */
+    flex-direction: column; /* 垂直排列 */
+    align-items: center; /* 選擇是否水平置中 */
+    padding-top: 50.86px;
 
     .footer-div {
-      width: 278.51px;
-      height: 225px;
-      margin: 58px 0px 85px 58px;
+      width: 302.24px;
+      height: 176px;
+      margin-top: 50.5px;
+      margin-inline: 36.38px;
       position: relative;
     }
 
     .footer-div:nth-child(1) {
-      margin-left: 50.74px;
-    }
-
-    .footer-div:last-child {
-      margin-right: 50.74px;
+      margin-top: 50.86px;
     }
 
     .footer-title {
@@ -482,12 +529,11 @@ const active = ref(true);
       border: 8px solid rgba(170, 102, 102, 0.6);
       border-radius: 50%;
       box-sizing: border-box;
-      background: transparent;
       position: absolute;
-      top: 66.58px;
-      right: 221.57px;
-      bottom: 113.42px;
-      left: 31.94px;
+      top: 13px;
+      right: 244.3px;
+      bottom: 19.42px;
+      left: 32.94px;
     }
 
     .footer-content {
