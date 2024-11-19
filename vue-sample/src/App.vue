@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const menuItems = [
   "白頭翁的特性",
@@ -30,17 +30,33 @@ const activeIndex = ref(null);
 const setActive = (index) => {
   activeIndex.value = index;
 };
-const isHeaderActive = ref(true);
+const isHeaderActive = ref(false);
 const toggleHeader = () => {
   isHeaderActive.value = !isHeaderActive.value;
-  console.log(isHeaderActive.value);
 };
+
+const showAside = ref(true);
+
+const mediaQuery = window.matchMedia("(max-width: 375px)");
+
+const updateAsideVisibility = (e) => {
+  showAside.value = !e.matches;
+};
+
+onMounted(() => {
+  mediaQuery.addEventListener("change", updateAsideVisibility);
+  updateAsideVisibility(mediaQuery);
+});
+
+onBeforeUnmount(() => {
+  mediaQuery.removeEventListener("change", updateAsideVisibility);
+});
 </script>
 
 <template>
   <div class="common-layout">
     <el-container>
-      <el-aside class="aside" v-show="false">
+      <el-aside class="aside" v-show="showAside">
         <div class="aside-icon">
           <div class="head"></div>
           <div class="beak"></div>
@@ -64,9 +80,34 @@ const toggleHeader = () => {
         <el-header
           class="header"
           :class="{ headerActive: isHeaderActive }"
-          v-show="true"
+          v-show="!showAside"
         >
-          <div class="header-menu" @click="toggleHeader">X</div>
+          <div class="header-menu" @click="toggleHeader">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="18"
+              viewBox="0 0 24 24"
+              v-show="!isHeaderActive"
+            >
+              <path
+                fill="currentColor"
+                d="M3 4h18v2H3zm0 7h12v2H3zm0 7h18v2H3z"
+              />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              v-show="isHeaderActive"
+            >
+              <path
+                fill="currentColor"
+                d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"
+              />
+            </svg>
+          </div>
           <div class="header-title">白頭翁不吃小米</div>
           <div class="header-icon">
             <div class="head"></div>
@@ -342,8 +383,6 @@ const toggleHeader = () => {
   .header-menu {
     height: 18px;
     width: 24px;
-    text-align: center;
-    border: 2px solid black;
     position: absolute;
     inset: 34.87px 324.62px 34.87px 26.38px;
   }
