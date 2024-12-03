@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
+import backgroundImg from "@/assets/image/2789ca730221661c9008e0bf404c1cdc.jpg";
+
 const menuItems = [
   "白頭翁的特性",
   "白頭翁的故事",
@@ -135,10 +137,7 @@ onBeforeUnmount(() => {
             年。
           </div>
           <div class="img-mask">
-            <img
-              src="https://s3-alpha-sig.figma.com/img/0411/a36a/2789ca730221661c9008e0bf404c1cdc?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Sk6jJrNXZ54chnO3TTyZz6RjuvTOeBSAa2E0uv0774ck~4W0o3l2JdQcGpzu-h24cpZnSWUAk8WfRZRRAUh8RR-8nFTpH8-9QSawyQZ2XInMeZ9panE4la~bXflXJ4cfrFoWIMenKdQQDCXBnXGJ-jKgedlNFjS5gxu~eIoiZQAEGI5tU9cRfamgfwgZyDtR363HTvLhFMSOBdrbDmTl4yFvJ3KSAbramlxH820EJyCJR0W2CNrpcopFPe243OEeL~vNmkw~SgGkqV-7JETEXmSy1vFroaBlo26L6EtpMWJqKNyuYu7mFu7qgavmsQ9aAMDrfQy2k5VXeHonnjAiyA__"
-              alt=""
-            />
+            <img :src="backgroundImg" alt="" />
           </div>
         </el-main>
 
@@ -368,7 +367,7 @@ onBeforeUnmount(() => {
   }
 }
 
-@media (max-width: 376px) {
+@media (max-width: 400px) {
   .header {
     height: 87.74px;
     width: 100%;
